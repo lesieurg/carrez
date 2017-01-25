@@ -1,0 +1,57 @@
+{
+    "estimation": {
+        "adresse": "",
+        "cp": 92400,  
+        "ville": "",
+        "type_bien": ["appartement", "loft", "duplex", "triplex", "maison", "hotelp"],
+        "surface_carrez": 0,
+        "nbpieces": ["studio", 2, 3, 4, 5, 6, 7, 8, 9, "10+"],        
+        "nbsdb": [1, 2, 3, 4, "5+", "aucune"],
+        "etage":{
+            "etage": ["RDC", 1, 2, 3, 4, 5, 6, 7, 8, 9,10, 11, 12, 13],
+            "etage_total": ["RDC", 1, 2, 3, 4, 5, 6, 7, 8, 9,10, 11, 12, 13]
+        },
+        "qualite":["comparable","nettement_inf" ,"nettement_sup"], 
+        "ascenceur":{
+            "non": true,
+            "true": false
+        },
+        "balcon":{
+            "non": true,
+            "true": false
+        },
+        "terrasse":{
+            "non": true,
+            "true": false
+        },
+        "cave":{
+            "non": true,
+            "true": false
+        },
+        "parking":{
+            "non": true,
+            "true": false
+        },
+        "chservice":{
+            "non": true,
+            "true": false
+        },
+        "vue":{
+            "non": true,
+            "true": false
+        },
+        "renover":{
+            "non": true,
+            "true": false
+        },
+        "partiecomunne_renov":{
+            "non": true,
+            "true": false
+        },
+        "ravalement":{
+            "non": true,
+            "true": false
+        },
+        "annee":2000
+    }
+}

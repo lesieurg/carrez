@@ -1,0 +1,39 @@
+{
+    "annonce": {
+        "categorie": [
+            {
+                "immobilier": ["ventes_immo","locations","colocations", "bureaux_commerces"],
+                "offres_emploi": "" ,
+                "voitures": "",
+                "motos": "",
+                "caraving": "",
+                "utilitaires": "",
+                "equipement_auto": "",
+                "equipement_moto": "",
+                "equipement_caravaning": "",
+                "nautisme": "",
+                "equipement_nautisme": "",
+                "locations": "",
+                "colocations": "",
+                "bureaux_commerces": "",
+                "chambres_hotel": "",
+                "campings": "",
+                "jeux_videos": "",
+                "autres": "",
+                "telephone": "",
+                "vins": ""
+            }
+        ],
+        "user":{
+            "particulier": true,
+            "professionnel": false
+        },
+        "type":{
+            "offres": true,
+            "demandes": false
+        },
+        "titre":null,
+        "texte":null,
+        "prix":0
+    }
+}
