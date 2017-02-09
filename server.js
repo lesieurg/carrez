@@ -57,7 +57,8 @@ exports.scraping = function scraping() {
 		// rest fixe
 		if ("Ville"==$("#adview > section > section > section.properties.lineNegative > div.line.line_city > h2 > span.property > span").text()){
 			var villeEntiere = $("#adview > section > section > section.properties.lineNegative > div.line.line_city > h2 > span.value").text();
-			ville = villeEntiere.split(" ")[0].toLowerCase();
+			console.log("calcul++++"+villeEntiere.split(' ').length);
+			ville = villeEntiere.split(" ")[0].toLowerCase().withoutAccent();
 			var cp = villeEntiere.split(" ")[1].replace("\n","");
 		}
 		else
@@ -69,14 +70,20 @@ exports.scraping = function scraping() {
 			// Type bien
 			if ("Type de bien"==$("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.property").text())
 				type_bien= $("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.value").text();
+			else
+				type_bien= "Maison"; // by deafault
 
 			// Pieces
 			if ("Pieces"==$("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.property").text().replace("�","e"))
 				pieces= $("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.value").text();
+			else
+				pieces = "7"; // by default
 
 			// Surface
 			if ("Surface"==$("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.property").text())
 				surface= $("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.value").text().replace("m2","").replace(" ","");
+			else
+				surface = 100;//by default
 		}
 
 		//
@@ -90,6 +97,7 @@ exports.scraping = function scraping() {
 		console.log("surface : "+surface);
 		console.log("pieces : "+pieces);
 
+		console.log("ville+++ "+ ville);
 		if (ville==undefined) console.log("ERROR in getting the city from leboncoin.fr");
 		else if (prix==undefined) console.log("ERROR in getting the price from leboncoin.fr");
 		else if (type_bien==undefined) console.log("ERROR in getting the house type from leboncoin.fr");
@@ -193,5 +201,36 @@ exports.scraping = function scraping() {
 			console.log('File successfully written! - Check the json/boncoin.json ');
 		});
 
+
+		var a = "éChâteau";
+
+		console.log("a = "+a.withoutAccent());
+
+
 		return deal;
+
+
+	}
+
+
+
+
+			String.prototype.withoutAccent = function(){
+	    var accent = [
+	        /[\300-\306]/g, /[\340-\346]/g, // A, a
+	        /[\310-\313]/g, /[\350-\353]/g, // E, e
+	        /[\314-\317]/g, /[\354-\357]/g, // I, i
+	        /[\322-\330]/g, /[\362-\370]/g, // O, o
+	        /[\331-\334]/g, /[\371-\374]/g, // U, u
+	        /[\321]/g, /[\361]/g, // N, n
+	        /[\307]/g, /[\347]/g, // C, c
+	    ];
+	    var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+
+	    var str = this;
+	    for(var i = 0; i < accent.length; i++){
+	        str = str.replace(accent[i], noaccent[i]);
+	    }
+
+	    return str;
 	}
