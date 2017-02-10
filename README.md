@@ -1,4 +1,4 @@
-author : Guillaume Lesieur
+authors : Guillaume Lesieur + Hugues Rieublandou
 -------GUD DEAL-------
 
 
@@ -18,8 +18,8 @@ node app.js
 - Scraping leboncoin.fr
 - Scraping MeilleursAgents.com
   - Treat all type of House (Loft, Duplex, Triplex, Maison..;)
-  - Works with Paris Arrondissement
-  - Works with Lyon Arrondissement
+  - Works with Paris Arrondissement (decomment the code for it)
+  - Works with Lyon Arrondissement (decomment the code for it)
   - Works with all cities with "-" or apostrophe
 - Tell the user if it's a good deal in an other html page
 
