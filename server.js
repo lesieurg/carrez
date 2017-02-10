@@ -130,13 +130,13 @@ exports.scraping = function scraping() {
 						|| nieme==09){
 							nieme = nieme.replace(0, "");
 					}
-					console.log("nieme = ", nieme);
+					//console.log("nieme = ", nieme);
 					urlMeilleursAgents = "https://www.meilleursagents.com/prix-immobilier/"+jsonBC.ville+"-"+nieme+"eme"+"-arrondissement-"+jsonBC.cp+"/";
 					// https://www.meilleursagents.com/prix-immobilier/paris-12eme-arrondissement-75012/
 				}
 				if (jsonBC.cp==69001 || 69002 || 69003 || 69004 || 69005 || 69006 || 69007 || 69008 || 69009){
 					var nieme= cp.replace(6900, "");
-					console.log("nieme = ", nieme);
+					//console.log("nieme = ", nieme);
 					urlMeilleursAgents = "https://www.meilleursagents.com/prix-immobilier/"+jsonBC.ville+"-"+nieme+"eme"+"-arrondissement-"+jsonBC.cp+"/";
 					// https://www.meilleursagents.com/prix-immobilier/lyon-7eme-arrondissement-69007/
 				}
