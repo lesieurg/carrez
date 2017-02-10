@@ -14,8 +14,14 @@ npm install cheerio
 node app.js
 
 
-
-- Treat all type of House (Loft, Duplex, Triplex, Maison..;)
+- Html form that get the user's URI
+- Scraping leboncoin.fr
+- Scraping MeilleursAgents.com
+  - Treat all type of House (Loft, Duplex, Triplex, Maison..;)
+  - Works with Paris Arrondissement
+  - Works with Lyon Arrondissement
+  - Works with all cities with "-" or apostrophe
+- Tell the user if it's a good deal in an other html page
 
 
 |-json <br />
@@ -37,3 +43,5 @@ node app.js
 |--server.js<br />
 |-package.json<br />
 |--README.md<br />
+
+using Bootstrap

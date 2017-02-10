@@ -1,8 +1,8 @@
 {
-    "prix": "1045000",
-    "ville": "courbevoie",
-    "cp": "92400",
-    "type_bien": "Appartement",
+    "prix": "490000",
+    "ville": "lyon",
+    "cp": "69008",
+    "type_bien": "Maison",
     "pieces": "7",
-    "surface": "225"
+    "surface": "155"
 }
