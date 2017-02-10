@@ -22,7 +22,7 @@ exports.scraping = function scraping() {
 		prix: 0,
 		ville: "",
 		cp: 75000,
-		type_bien :["Appartement", "Loft", "Duplex", "Triplex", "Maison", "Hotelp"],
+		type_bien :["Appartement", "Loft", "Duplex", "Triplex", "Maison"],
 		pieces: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "12", "13", "14"
 							, "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"],
 		surface:0};
@@ -152,8 +152,9 @@ exports.scraping = function scraping() {
 					//------------------Calculate------------------//
 					//---------------------------------------------//
 
-					if (jsonBC.type_bien=="Appartement")// Appartement
-						prixMeilleursAgents = jsonMA.prixm2moyen_appartement*jsonBC.surface;
+					if (jsonBC.type_bien=="Appartement"||jsonBC.type_bien=="Loft"||
+						jsonBC.type_bien=="Duplex"||jsonBC.type_bien=="Triplex")// Appartement
+							prixMeilleursAgents = jsonMA.prixm2moyen_appartement*jsonBC.surface;
 					else  // Maison or others
 						prixMeilleursAgents = jsonMA.prixm2moyen_maison*jsonBC.surface;
 
@@ -167,7 +168,6 @@ exports.scraping = function scraping() {
 					console.log("prix : " + jsonBC.prix);
 					console.log("prixMax : " + prixMax);
 					console.log("---------------------------");
-
 
 					if (parseInt(jsonBC.prix)<=parseInt(prixMax))
 						deal = "good";

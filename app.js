@@ -28,9 +28,6 @@ var server = app.listen(app.get('port'), function() {
 //Get Values from Form
 function Action(){
 	app.post('/', upload.array(), function (req, res, next) {
-  	//console.log(req.body);
-		//res.json(req.body);
-
 		exports.Uri= req.body.uri;
 		exports.Tolerance = req.body.tolerance;
 
