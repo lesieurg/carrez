@@ -13,7 +13,7 @@ exports.scraping = function scraping() {
 	var deal="";
 
 	//--------------------------------------------//
-	//----------scrapping BONCOIN----------------//
+	//----------scraping BONCOIN----------------//
 	//-------------------------------------------//
 
 	//url = 'https://www.leboncoin.fr/ventes_immobilieres/1087293645.htm?ca=7_s';
@@ -113,7 +113,7 @@ exports.scraping = function scraping() {
 				jsonBC.surface = surface;
 
 				//---------------------------------------------//
-				//----------scrapping MEILLEURSAGENTS----------//
+				//----------scraping MEILLEURSAGENTS----------//
 				//---------------------------------------------//
 
 
