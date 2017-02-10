@@ -12,3 +12,6 @@ npm install cheerio
 
 
 node app.js
+
+
+- Treat only Appartement and House

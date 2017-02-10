@@ -21,15 +21,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 var uri = null;
 var server = app.listen(app.get('port'), function() {
 	var port = server.address().port;
-	console.log('Magic happens on port ' + port);
+	console.log('Magic happens on port ' + port+  '\n' );
 	Action();
 });
-
 
 //Get Values from Form
 function Action(){
 	app.post('/', upload.array(), function (req, res, next) {
-  	console.log(req.body);
+  	//console.log(req.body);
 		//res.json(req.body);
 
 		exports.Uri= req.body.uri;
@@ -37,7 +36,7 @@ function Action(){
 
 		// Call server.js
 		deal = tools.scraping();
-		console.log("DEAL = "+deal);
+		console.log("Deal from app.js = "+deal);
 		if (deal=="good")
 			res.sendFile('public/good.html', {root: __dirname })
 		else if (deal=="bad")

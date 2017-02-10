@@ -57,9 +57,13 @@ exports.scraping = function scraping() {
 		// rest fixe
 		if ("Ville"==$("#adview > section > section > section.properties.lineNegative > div.line.line_city > h2 > span.property > span").text()){
 			var villeEntiere = $("#adview > section > section > section.properties.lineNegative > div.line.line_city > h2 > span.value").text();
-			console.log("calcul++++"+villeEntiere.split(' ').length);
-			ville = villeEntiere.split(" ")[0].toLowerCase().withoutAccent();
+			villeEntiere=villeEntiere.toLowerCase().withoutAccent().replace("'","-"); // replace the apostrophe for cities etc..
 			var cp = villeEntiere.split(" ")[1].replace("\n","");
+			var ville = villeEntiere.split(" ")[0].toLowerCase().withoutAccent();
+			// console.log("ville entiere "+villeEntiere);
+			// console.log("cp "+cp);
+			// console.log("ville "+ville);
+			villeEntiere=villeEntiere.replace(" ","-");
 		}
 		else
 			console.log("ERROR in scrapping the city");
@@ -70,34 +74,28 @@ exports.scraping = function scraping() {
 			// Type bien
 			if ("Type de bien"==$("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.property").text())
 				type_bien= $("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.value").text();
-			else
-				type_bien= "Maison"; // by deafault
 
 			// Pieces
 			if ("Pieces"==$("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.property").text().replace("�","e"))
 				pieces= $("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.value").text();
-			else
-				pieces = "7"; // by default
 
 			// Surface
 			if ("Surface"==$("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.property").text())
 				surface= $("#adview > section > section > section.properties.lineNegative > div:nth-child("+i+") > h2 > span.value").text().replace("m2","").replace(" ","");
-			else
-				surface = 100;//by default
+
 		}
 
 		//
 		// Control values
 		//
-
-		console.log("ville entiere : "+villeEntiere);
+		console.log("---------------------------");
+		//console.log("ville entiere : "+villeEntiere);
 		console.log("ville : "+ ville);
 		console.log("cp : "+ cp);
 		console.log("type bien : "+type_bien);
 		console.log("surface : "+surface);
 		console.log("pieces : "+pieces);
 
-		console.log("ville+++ "+ ville);
 		if (ville==undefined) console.log("ERROR in getting the city from leboncoin.fr");
 		else if (prix==undefined) console.log("ERROR in getting the price from leboncoin.fr");
 		else if (type_bien==undefined) console.log("ERROR in getting the house type from leboncoin.fr");
@@ -114,14 +112,13 @@ exports.scraping = function scraping() {
 				jsonBC.pieces = pieces;
 				jsonBC.surface = surface;
 
-
 				//---------------------------------------------//
 				//----------scrapping MEILLEURSAGENTS----------//
 				//---------------------------------------------//
 
 
-				console.log("jsonBC.ville "+ jsonBC.ville);
-				console.log("jsonBC.cp "+ jsonBC.cp);
+				// console.log("jsonBC.ville "+ jsonBC.ville);
+				// console.log("jsonBC.cp "+ jsonBC.cp);
 
 				urlMeilleursAgents = "https://www.meilleursagents.com/prix-immobilier/"+jsonBC.ville+"-"+jsonBC.cp+"/";
 				console.log("urlMeilleursAgents : "+urlMeilleursAgents);
@@ -150,21 +147,28 @@ exports.scraping = function scraping() {
 					jsonMA.prixm2moyen_appartement = prixm2moyen_appartement;
 					jsonMA.prixm2moyen_maison = prixm2moyen_maison;
 
+
 					//---------------------------------------------//
 					//------------------Calculate------------------//
 					//---------------------------------------------//
 
-					// problème dans calcul
+					if (jsonBC.type_bien=="Appartement")// Appartement
+						prixMeilleursAgents = jsonMA.prixm2moyen_appartement*jsonBC.surface;
+					else  // Maison or others
+						prixMeilleursAgents = jsonMA.prixm2moyen_maison*jsonBC.surface;
 
-					prixMeilleursAgents = jsonMA.prixm2moyen_maison*jsonBC.surface;
-					console.log("jsonMA.prixm2moyen_maison"+ jsonMA.prixm2moyen_maison);
-					console.log("jsonBC.surface"+ jsonBC.surface);
-					console.log("prixMeilleursAgents"+prixMeilleursAgents);
+					var prixMax = (tolerance/100)*prixMeilleursAgents+prixMeilleursAgents; // Prix max avec tolerance
 
-					var prixMax = (tolerance/100)*prixMeilleursAgents+prixMeilleursAgents;
+					// Console.log
+					console.log("---------------------------");
+					console.log("jsonMA.prixm2moyen_maison : "+ jsonMA.prixm2moyen_maison);
+					console.log("jsonBC.surface : "+ jsonBC.surface);
+					console.log("prixMeilleursAgents : "+prixMeilleursAgents);
 					console.log("prix : " + jsonBC.prix);
 					console.log("prixMax : " + prixMax);
-					//
+					console.log("---------------------------");
+
+
 					if (parseInt(jsonBC.prix)<=parseInt(prixMax))
 						deal = "good";
 					else if (parseInt(jsonBC.prix)>parseInt(prixMax)) // problème ici
@@ -174,8 +178,11 @@ exports.scraping = function scraping() {
 
 					if (deal==null)
 						console.log("********* ERROR with the result of the deal ");
-					else
+					else{
+						console.log("*************************************************************************");
 						console.log("********* It's a " + deal+ " deal according to MeilleursAgents **********");
+						console.log("*************************************************************************");
+					}
 
 				} // if (!error)
 				else
@@ -195,42 +202,36 @@ exports.scraping = function scraping() {
 			console.log("ERROR with your http request");
 
 
-
-
 		fs.writeFile('./json/boncoin.json', JSON.stringify(jsonBC, null, 4), function(err){
 			console.log('File successfully written! - Check the json/boncoin.json ');
 		});
 
-
-		var a = "éChâteau";
-
-		console.log("a = "+a.withoutAccent());
-
-
 		return deal;
 
 
-	}
+	}// end export function
 
 
 
 
-			String.prototype.withoutAccent = function(){
-	    var accent = [
-	        /[\300-\306]/g, /[\340-\346]/g, // A, a
-	        /[\310-\313]/g, /[\350-\353]/g, // E, e
-	        /[\314-\317]/g, /[\354-\357]/g, // I, i
-	        /[\322-\330]/g, /[\362-\370]/g, // O, o
-	        /[\331-\334]/g, /[\371-\374]/g, // U, u
-	        /[\321]/g, /[\361]/g, // N, n
-	        /[\307]/g, /[\347]/g, // C, c
-	    ];
-	    var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
 
-	    var str = this;
-	    for(var i = 0; i < accent.length; i++){
-	        str = str.replace(accent[i], noaccent[i]);
-	    }
+///////////// Function util
+	String.prototype.withoutAccent = function(){
+		var accent = [
+			/[\300-\306]/g, /[\340-\346]/g, // A, a
+		  /[\310-\313]/g, /[\350-\353]/g, // E, e
+		  /[\314-\317]/g, /[\354-\357]/g, // I, i
+		  /[\322-\330]/g, /[\362-\370]/g, // O, o
+		  /[\331-\334]/g, /[\371-\374]/g, // U, u
+		  /[\321]/g, /[\361]/g, // N, n
+		  /[\307]/g, /[\347]/g, // C, c
+		];
+		var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
 
-	    return str;
+		var str = this;
+		for(var i = 0; i < accent.length; i++){
+			str = str.replace(accent[i], noaccent[i]);
+		}
+
+		return str;
 	}
