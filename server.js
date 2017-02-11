@@ -200,8 +200,8 @@ exports.scraping = function scraping() {
 						console.log("ERROR with request on MeilleursAgents");
 					else
 						console.log("prixMeilleursAgents : "+prixMeilleursAgents);
-					console.log("prix : " + jsonBC.prix);
-					console.log("prixMax : " + prixMax);
+					console.log("prix maison: " + jsonBC.prix);
+					console.log("prixMax toléré: " + prixMax);
 					console.log("---------------------------");
 
 					if (parseInt(jsonBC.prix)<=parseInt(prixMax))
