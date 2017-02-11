@@ -1,4 +1,5 @@
-authors : Guillaume Lesieur + Hugues Rieublandou
+- authors : Guillaume Lesieur + Hugues Rieublandou
+<br />
 -------GUD DEAL-------
 
 
