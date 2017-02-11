@@ -17,12 +17,14 @@ node app.js
 
 - Html form that get the user's URI
 - Scraping leboncoin.fr
+  - show the result in a json file
 - Scraping MeilleursAgents.com
+  - show the result in a json file
   - Treat all type of House (Loft, Duplex, Triplex, Maison..;)
   - Works with Paris districts
   - Works with Lyon districts
   - Works with all cities with "-" or apostrophe
-- Tell the user if it's a good deal in an other html page
+- Tell the user if it's a good deal or na in a html page
 
 
 |-json <br />
